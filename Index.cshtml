@@ -1,0 +1,521 @@
+@model IEnumerable<MEE.Models.Offer.OffersData>
+@using MEE.Models.Offer
+@{
+    ViewData["Title"] = "Ofertas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-9">
+        <h2>Ofertas</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                Ofertas Disponibles
+            </li>
+            <li class="active breadcrumb-item">
+                <strong>Index</strong>
+            </li>
+
+
+
+        </ol>
+    </div>
+    @*<div>
+        <br>
+        <br>
+        <a href="@Url.Action("Create", "Offers")" class="btn btn-default btn-primary float-right" data-toggle="tooltip" data-placement="top" title="Neva Oferta">Nueva Oferta</a>
+
+
+    </div>*@
+
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <!-- Section: Sidebar -->
+            <section>
+
+                <!-- Section: Filters -->
+                <section class="filters">
+                    <!-- Section: Price -->
+                    <section filter="str_Salary" class="mb-4">
+
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h6 class="font-weight-bold mb-3">Salario</h6>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="form-check mb-3">
+                                    <input type="radio" class="filter-option form-check-input" id="under70" str_Salary="0-700000" name="materialExampleRadios">
+                                    <label class="form-check-label small text-uppercase card-link-secondary" for="under70">Menos de $700.000</label>
+                                </div>
+                                <div class="form-check  mb-3">
+                                    <input type="radio" class="filter-option form-check-input" id="70100" str_Salary="700000-1000000" name="materialExampleRadios">
+                                    <label class="form-check-label small text-uppercase card-link-secondary" for="70100">$700.000 a $1.000.000</label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input type="radio" class="filter-option form-check-input" id="100150" str_Salary="1000000-1500000" name="materialExampleRadios">
+                                    <label class="form-check-label small text-uppercase card-link-secondary" for="100150">$1.000.000 a $1.500.000</label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input type="radio" class="filter-option form-check-input" id="150200" str_Salary="1500000-2000000" name="materialExampleRadios">
+                                    <label class="form-check-label small text-uppercase card-link-secondary" for="150200">$1.500.000 a $2.000.000</label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input type="radio" class="filter-option form-check-input" id="200above" str_Salary="2000000-*" name="materialExampleRadios">
+                                    <label class="form-check-label small text-uppercase card-link-secondary" for="200above">Mas de $2.000.000</label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section: Areas -->
+                    <section filter="str_Area" class="mb-4">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h6 class="font-weight-bold mb-3">Areas</h6>
+                            </div>
+                            <div class="ibox-content">
+                                @if (ViewBag.FilArea != null)
+                                {
+                                    foreach (var item in (ViewBag.FilArea as List<Filtros>))
+                                    {
+                                        <div class="form-check mb-3">
+                                            <input type="radio" class="filter-option form-check-input" id="@item.Name" str_Area="@item.Name" name="materialExampleRadios1">
+                                            <label class="form-check-label small text-uppercase card-link-secondary" for="@item.Name">@item.Name</label> <small class="float-right">(@item.Cantidad)</small>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                    </section>
+                    <!-- Section: Departamento -->
+                    <section filter="str_Department" class="mb-4">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h6 class="font-weight-bold mb-3">Departamento</h6>
+                            </div>
+                            <div class="ibox-content">
+                                @if (ViewBag.FilDepartamento != null)
+                                {
+                                    foreach (var item in (ViewBag.FilDepartamento as List<Filtros>))
+                                    {
+                                        <div class="form-check mb-3">
+                                            <input type="radio" class="filter-option form-check-input" id="@item.Name" str_Department="@item.Name" name="materialExampleRadios2">
+                                            <label class="form-check-label small text-uppercase card-link-secondary" for="@item.Name">@item.Name</label> <small class="float-right">(@item.Cantidad)</small>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Section: Ciudad -->
+                    <section filter="str_City" class="mb-4">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h6 class="font-weight-bold mb-3">Ciudad</h6>
+                            </div>
+                            <div class="ibox-content">
+                                @if (ViewBag.FilCiudad != null)
+                                {
+                                    foreach (var item in (ViewBag.FilCiudad as List<Filtros>))
+                                    {
+                                        <div class="form-check mb-3">
+                                            <input type="radio" class="filter-option form-check-input" id="@item.Name" str_City="@item.Name" name="materialExampleRadios3">
+                                            <label class="form-check-label small text-uppercase card-link-secondary" for="@item.Name">@item.Name</label> <small class="float-right">(@item.Cantidad)</small>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Section: Jornada -->
+                    <section filter="str_WorkingDay" class="mb-4">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h6 class="font-weight-bold mb-3">Jornada</h6>
+                            </div>
+                            <div class="ibox-content">
+                                @if (ViewBag.FilJornada != null)
+                                {
+                                    foreach (var item in (ViewBag.FilJornada as List<Filtros>))
+                                    {
+                                        <div class="form-check mb-3">
+                                            <input type="radio" class="filter-option form-check-input" id="@item.Name" str_WorkingDay="@item.Name" name="materialExampleRadios4">
+                                            <label class="form-check-label small text-uppercase card-link-secondary" for="@item.Name">@item.Name</label> <small class="float-right">(@item.Cantidad)</small>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section: Cargo -->
+                    <section filter="str_Position" class="mb-4">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h6 class="font-weight-bold mb-3">Cargo</h6>
+                            </div>
+                            <div class="ibox-content">
+                                @if (ViewBag.FilCargo != null)
+                                {
+                                    foreach (var item in (ViewBag.FilCargo as List<Filtros>))
+                                    {
+                                        <div class="form-check mb-3">
+                                            <input type="radio" class="filter-option form-check-input" id="@item.Name" str_Position="@item.Name" name="materialExampleRadios5">
+                                            <label class="form-check-label small text-uppercase card-link-secondary" for="@item.Name">@item.Name</label> <small class="float-right">(@item.Cantidad)</small>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section: Psicologo -->
+                    <section filter="str_Email" class="mb-4">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <h6 class="font-weight-bold mb-3">Psicologo</h6>
+                            </div>
+                            <div class="ibox-content">
+                                @if (ViewBag.str_Email != null)
+                                {
+                                    foreach (var item in (ViewBag.str_Email as List<Filtros>))
+                                    {
+                                        <div class="form-check mb-3">
+                                            <input type="radio" class="filter-option form-check-input" id="@item.Name" str_Email="@item.Name" name="materialExampleRadios6">
+                                            <label class="form-check-label small text-uppercase card-link-secondary" for="@item.Name">@item.Name.Replace("@misionempresarial.com", "") </label> <small class="float-right">(@item.Cantidad)</small>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </section>
+
+                </section>
+                <!-- Section: Filters -->
+
+            </section>
+            <!-- Section: Sidebar -->
+
+
+        </div>
+        <div class="col-lg-9">
+            <section>
+
+                <!-- Loader -->
+
+                <div id="loader" class="loader-overlay">
+                    <div class="preloader-wrapper active">
+                        <div class="spinner-layer spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loader -->
+                <!-- Grid row -->
+                <div id="products">
+                </div>
+                <!-- Grid row -->
+
+            </section>
+            @*@foreach (var item in Model)
+                {
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a href="@Url.Action("DetailsOffers", "OffersCandidate",new { @item.Id})">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h3><strong>@item.str_Position - @item.str_Complement</strong></h3>
+
+                                    </div>
+                                    <div class="ibox-content">
+
+
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>@item.str_Description</p>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <br />
+                                                <small>@item.str_ContractDate</small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                }*@
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+@section Styles {
+    <environment names="Development,Staging,Production">
+
+        <link href="~/src/css/DataPicker/datepicker3.css" rel="stylesheet" />
+        <link href="~/src/css/DataPicker/boostrapSelect.css" rel="stylesheet" />
+        <link href="~/src/css/DataTable/datatables.min.css" rel="stylesheet" />
+        <link href="~/src/css/steps/jquery.steps.css" rel="stylesheet" />
+        @*<link rel="stylesheet" href="~/lib/bootstrap-datepicker/dist/css/datepicker3.css" />
+        <link href="~/lib/iCheck/custom.css" rel="stylesheet" />
+        <link href="~/lib/steps/jquery.steps.css" rel="stylesheet" />
+        <link href="~/lib/DataPicker/boostrapSelect.css" rel="stylesheet" />
+        <link href="~/lib/DataPicker/datepicker3.css" rel="stylesheet" />
+        <link href="~/lib/dataTables/datatables.min.css" rel="stylesheet" />*@
+    </environment>
+}
+@section Scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/src/css/DataTable/datatables.min.js"></script>
+        <script src="~/src/css/DataPicker/bootstrap-datepicker.js"></script>
+        <script src="~/src/js/custom.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="https://cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
+
+        <script src="~/src/js/steps/jquery.steps.min.js"></script>
+
+
+        @*<script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+        <script src="~/lib/iCheck/icheck.min.js"></script>
+        <script src="~/lib/steps/jquery.steps.min.js"></script>
+        <script src="~/lib/validate/jquery.validate.min.js"></script>
+        <script src="~/lib/DataPicker/bootstrap-datepicker.js"></script>
+        <script src="~/lib/dataTables/datatables.min.js"></script>
+        <script src="~/lib/dataTables/dataTables.bootstrap4.min.js"></script>*@
+        @* <script src="~/lib/jquery/src/jquery.js"></script>*@
+    </environment>
+
+    <script>
+        $(document).ready(() => {
+            //$(".mdb-select").materialSelect();
+
+            let filters = getFilters();
+
+            getProducts(filters);
+
+            $(".filter-option").change((e) => {
+                e.stopImmediatePropagation();
+                for (let filter of Object.keys(filters)) {
+                    if (e.target.attributes[filter]) {
+                        filters = updateFilters(
+                            filters,
+                            filter,
+                            e.target.attributes[filter].value,
+                            e.target.checked
+                        );
+                    }
+                }
+
+                getProducts(filters);
+            });
+        });
+
+        function getFilters() {
+            const filters = Array.from($("[filter]")).map(
+                (el) => el.attributes.filter.value
+            );
+            const dict = {};
+
+            filters.forEach((filter) => {
+                dict[filter] = [];
+            });
+
+            return dict;
+        };
+
+        function updateFilters(filters, filter, option, value) {
+            const dict = { ...filters };
+            if (filter === "str_Area") {
+                dict.str_Area = [option];
+            } else if (filter === "str_Department") {
+                dict.str_Department = [option];
+            } else if (filter === "str_City") {
+                dict.str_City = [option];
+            } else if (filter === "str_WorkingDay") {
+                dict.str_WorkingDay = [option];
+            } else if (filter === "str_Position") {
+                dict.str_Position = [option];
+            } else if (filter === "str_Salary") {
+                dict.str_Salary = [option];
+            } else if (filter === "str_Email") {
+                dict.str_Email = [option];
+            } else if (value && filters[filter].indexOf(option) === -1)
+                dict[filter].push(option);
+            else if (!value)
+                dict[filter] = dict[filter].filter((entry) => entry !== option);
+
+            return dict;
+        };
+
+
+        function getProducts(filters) {
+
+            $.get('ListData', (products) => {
+                renderProducts(applyFilters(products, filters));
+            })
+                .fail(() => {
+                    console.log("error");
+                });
+        };
+
+        function applyFilters(products, filters) {
+            return products.filter((product) => {
+                for (let filter of Object.keys(filters)) {
+                    if (filters[filter].length > 0 && !matchFilters(filter, filters, product))
+                        return false;
+                }
+                return true;
+            });
+        };
+
+        function matchFilters(filter, filters, data) {
+            if (filter === "str_Area") {
+                return filters[filter].indexOf(data[filter]) !== -1;
+
+            } else if (filter === "str_Department") {
+                return filters[filter].indexOf(data[filter]) !== -1;
+
+            } else if (filter === "str_City") {
+                return filters[filter].indexOf(data[filter]) !== -1;
+
+            } else if (filter === "str_WorkingDay") {
+                return filters[filter].indexOf(data[filter]) !== -1;
+
+            } else if (filter === "str_Position") {
+                return filters[filter].indexOf(data[filter]) !== -1;
+
+            } else if (filter === "str_Email") {
+                return filters[filter].indexOf(data[filter]) !== -1;
+
+            } else if (filter === "str_Salary") {
+                //let [min, max] = filters.str_Salary[0].split("-");
+
+                //if (max === "*") return data.str_Salary > min;
+                //else return data.str_Salary >= min && data.str_Salary <= max;
+
+
+                let [min, max] = filters.str_Salary[0].split("-");
+
+                if (max === "*") return Number(data.str_Salary) > min;
+
+                else return Number(data.str_Salary) > min && Number(data.str_Salary) < max;
+            }
+            if (!Array.isArray(data[filter]))
+                return filters[filter].indexOf(data[filter]) !== -1;
+            for (let value of data[filter]) {
+                if (filters[filter].indexOf(value) !== -1) return true;
+            }
+
+            return false;
+        };
+
+        function createTemplate(product) {
+            var a = `Url.Action("DetailsOffers", "Offers", new { ${product.Id} })`;
+            var txtHTML = `<div class="row">
+                           <div class="col-lg-12">`;
+            if (product.bool_Urgente == true) {
+                txtHTML = txtHTML + `<div class="ibox panel panel-danger">`;
+            } else {
+                txtHTML = txtHTML + `<div class="ibox">`;
+            }
+            txtHTML = txtHTML + `
+                                                    <div class="ibox-title">
+                                                          <h3>
+                                                        <strong> ${product.str_Position} - ${product.str_Complement}</strong>`;
+                                                            if (product.bool_Urgente == true) {
+                                                                txtHTML = txtHTML + `<span class="float-right font-normal text-danger">Oferta Urgente</span>`;
+                                                            }
+                                                            txtHTML = txtHTML + `</h3>
+                                                    </div>
+                                                    <div class="ibox-content">
+                                                    <div class="row">
+
+                                                            <div class="col-lg-5">
+                                                                 <div class="col-lg-12">
+                                                                        <small>Ciudad: ${product.str_City} - ${product.str_Department}</small>
+                                                                 </div>
+                                                                 <div class="col-lg-12">
+                                                                        <small>Fecha de creación: ${product.date.substring(0, 10)}</small>
+                                                                  </div>
+                                                                  <div class="col-lg-12">
+                                                                        <small>Creada por: ${product.str_Email}</small>
+                                                                   </div>
+                                                                    `;
+                                                                    if (product.bool_OcultarEmpresa == true) {
+                                                                    txtHTML = txtHTML + ` <div class="col-lg-12">
+                                                                                <small> Empresa: ${product.str_NitCompany}</small>
+                                                                            </div>`;
+                                                                    }
+                                                                    txtHTML = txtHTML +  `
+                                                                    <div class="col-lg-12">
+                                                                        <small> Estado: ${product.str_Status}</small>
+                                                                    </div>
+                                                               </div>
+                                                               <div class="col-lg-3 bd-example bd-example-position-examples d-flex justify-content-around">
+                                                                      <div class="">
+
+                                                                            <small> Cantidad de Aspirantes</small><br>
+                                                                            <span class="label label-warning float">${product.cantidad}</span>
+
+                                                                      </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <a href="@Url.Action("Edit", "Offers")?id=${product.id}"><button title="Editar" class="btn btn-outline btn-primary dim" data-toggle="tooltip" type="button"><i class="fa fa-edit"></i></button></a>
+                                                                    <a href="@Url.Action("Delete", "Offers")?id=${product.id}"><button title="Eliminar" class="btn btn-outline btn-danger dim" type="button"> <i class="fa fa-trash-o"></i></button></a>
+                                                                    <a href="@Url.Action("CandidatesOffers", "Offers")?id=${product.id}"><button title="Ver Candidatos" class="btn btn-outline btn-success  dim" type="button"><i class="fa fa-users"></i></button></a>
+                                                                    <br>
+                                                                    <a href="@Url.Action("Duplicar", "Offers")?id=${product.id}"><button title="Duplicar" class="btn btn-outline btn-info  dim" type="button"> <i class="fa fa-files-o"></i></button></a>`;
+                                                                                if (product.str_Status == "Activa") {
+                                                                                    txtHTML = txtHTML + `<button title="Inactivar" class="btn btn-outline btn-danger dim" type="button"> <a href="@Url.Action("Estado", "Offers")?id=${product.id}"><i class="fa fa-circle-o"></i></a></button>`;
+                                                                                } else {
+                                                                                    txtHTML = txtHTML + `<button title="Activar" class="btn btn-outline btn-success  dim" type="button"><a href="@Url.Action("Estado", "Offers")?id=${product.id}"><i class="fa fa-dot-circle-o"></i></a></button>`;
+                                                                                }
+                                                                                txtHTML = txtHTML + `
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+            return txtHTML
+        }
+
+        function renderProducts(products) {
+            const template =
+                products.length === 0
+                    ? `<p>No matching results found.</p>`
+                    : products.map((product) => createTemplate(product)).join("\n");
+            $("#products").html(template);
+        }
+    </script>
+}
